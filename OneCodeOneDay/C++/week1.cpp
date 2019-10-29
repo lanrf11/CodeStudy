@@ -85,3 +85,42 @@ public:
         return rotateArray[low];
     }
 };
+
+//day 2 task 1:
+/*
+给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。
+保证base和exponent不同时为0
+*/
+class Solution {
+public:
+    double Power(double base, int exponent) {
+        //method 1
+        /*
+        if(exponent == 1 || base == 0)
+            return base;
+        if(exponent == -1)
+            return 1/base;
+        if(exponent == 0)
+            return 1;
+        double p1 = Power(base, exponent/2);
+        double p2 = Power(base, exponent - (exponent/2)*2);
+        return p1*p1*p2;
+        */
+
+        //method 2: 快速幂方法
+        if(base == 0)
+            return 0;
+        double ans = 1;
+        int e = exponent>0 ? exponent: (-1 * exponent);
+        while(e > 0)
+        {
+            if(e & 1 != 0)
+                ans *= base;
+            base *= base;
+            e >>= 1;
+        }
+        return exponent>0 ? ans: 1.0/ans;
+    }
+};
+
+
