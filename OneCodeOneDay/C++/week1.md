@@ -200,3 +200,88 @@ public:
 };
 ~~~
 
+
+# day 3 task 1
+
+输入一个链表，按链表从尾到头的顺序返回一个ArrayList。
+
+
+~~~C++
+// 遍历链表，将各个节点值依次存入vector中，再将vector逆序。
+// vector.push_back(value);
+#include <iostream>
+#include<vector>
+using namespace std;
+
+struct ListNode
+{
+      int val;
+      struct ListNode *next;
+      ListNode(int x) :
+            val(x), next(NULL) {
+      }
+};
+
+class Solution
+{
+public:
+    vector<int> printListFromTailToHead(ListNode* head)
+    {
+        vector<int> ArrayList;
+        ListNode* curNode = head;
+        while(curNode != NULL)
+        {
+            ArrayList.push_back(curNode->val);
+            curNode = curNode->next;
+        }
+        int arrayLen = ArrayList.size();
+        for(int i=0; i<arrayLen/2; i++)
+        {
+            int temp = ArrayList[i];
+            ArrayList[i] = ArrayList[arrayLen-1-i];
+            ArrayList[arrayLen-1-i] = temp;
+        }
+        return ArrayList;
+    }
+};
+
+int main()
+{
+    ListNode* head = new ListNode(1);
+    ListNode* second = new ListNode(2);
+    ListNode* third = new ListNode(3);
+    ListNode* four = new ListNode(4);
+    head->next = second;
+    second->next = third;
+    third->next = four;
+
+    Solution a;
+    vector<int> arralist = a.printListFromTailToHead(head);
+    for(int i=0; i<arralist.size();i++)
+        cout << arralist[i] << " ";
+    return 0;
+}
+~~~
+
+~~~C++
+//遍历链表，依次将节点的值放在vector头部。
+// vector.insert(position, value);
+class Solution
+{
+public:
+    vector<int> printListFromTailToHead(ListNode* head)
+    {
+        vector<int> ArrayList;
+        ListNode* curNode = head;
+        while(curNode != NULL)
+        {
+            ArrayList.insert(ArrayList.begin(), curNode->val);
+            curNode = curNode->next;
+        }
+        return ArrayList;
+    }
+};
+~~~
+
+# day 3 task 2
+
